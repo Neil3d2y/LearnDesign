@@ -1,5 +1,6 @@
 import personpkg.Person;
 import personpkg.shapepkg.*;
+import personpkg.Mazda;
 
 public class TestPackage {
     public static void main(String[] args) {
@@ -12,6 +13,9 @@ public class TestPackage {
         Triangle triangle = new Triangle(10, 4);
         triangle.getArea();
         triangle.draw();
+
+        Mazda mycar = new Mazda();
+        mycar.start();
     }
 }
 
