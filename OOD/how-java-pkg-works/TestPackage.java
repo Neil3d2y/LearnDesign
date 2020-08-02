@@ -1,6 +1,7 @@
 import personpkg.Person;
 import personpkg.shapepkg.*;
 import personpkg.Mazda;
+import java.util.*;
 
 public class TestPackage {
     public static void main(String[] args) {
@@ -13,6 +14,14 @@ public class TestPackage {
         Triangle triangle = new Triangle(10, 4);
         triangle.getArea();
         triangle.draw();
+
+        List<Shape> shapes = new ArrayList<>();
+        shapes.add(circle);
+        shapes.add(triangle);
+
+        for (Shape s : shapes) {
+            s.draw();
+        }
 
         Mazda mycar = new Mazda();
         mycar.start();
