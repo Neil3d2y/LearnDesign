@@ -29,6 +29,12 @@ public class Triangle implements Shape {
 4. Interface segregation 
 5. Dependency inversion
 
+## 5C
+1. Clarify
+2. Core Objects
+3. Cases
+4. Classes
+5. Correctness
 
 ## Design Pattern
 1. Strategy Design Pattern
