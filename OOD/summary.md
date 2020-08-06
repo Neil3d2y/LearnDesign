@@ -36,6 +36,30 @@ public class Triangle implements Shape {
 4. Classes
 5. Correctness
 
+## Java Mutex + Try Catch
+```java
+// final keyword:
+/*
+1. variable -> constant
+2. method   -> not override
+3. class    -> cannot inheritate
+*/
+private final Semaphore mutex = new Semaphore(1);
+
+public Object getItem() throws InterrupException {
+	try {
+		mutex.acquire();
+		return getItem();
+	}
+	catch(Exception e) {
+		throws new ArithmeticException("Access Denied");
+	}
+	finally {
+		mutex.release();
+	}
+}
+```
+
 ## Design Pattern
 1. Strategy Design Pattern
 
@@ -96,7 +120,7 @@ public class ParkingLot {
 [为什么需要java内部类](https://juejin.im/post/6844903566293860366)
 
 
-### Law of Demeter (SOLID 意外第六法则)
+#### Law of Demeter (SOLID 意外第六法则)
 Only talk to closly related units
 Don't talk to strangers.
 
@@ -107,3 +131,5 @@ Don't talk to strangers.
 # Good
 +obj.dosomething();
 ```
+
+3. State Design Pattern
