@@ -90,6 +90,35 @@ public class ParkingLot {
 }
 ```
 
+1. `constructor` is *private*
+2. 定义 `private static ParkingLot _instanc = null`
+3. 定义 `public static ParkingLot getInstance()`
+4. `static`: 修饰class的attributes and methods, 使之属于类的而不是类的实例
+
+```diff
+!    public static synchronized ParkingLot getInstance() {
+!       ...
+!    }
+```
+以上是用Lock实现线程安全的做法
+其他做法
+> 静态内部类 (*static nested classes*)
+```java
+public class ParkingLot {
+    private ParkingLot(){}
+
+    private static class LazyParkingLot {
+        static final ParkingLot _instance = new ParkingLot();
+    }
+
+    public static ParkingLot getInstance() {
+        return LazyPar5kingLot._instance;
+    }
+}
+```
+
+[为什么需要java内部类](https://juejin.im/post/6844903566293860366)
+
 3. State Design Pattern (状态机)
 > ATM machine, vending machine
 
@@ -222,35 +251,32 @@ public class VendingMachine {
 抽象的过程用**`interface`**实现
 >所以，interface && system && state 都是一样的template
 
-1. `constructor` is *private*
-2. 定义 `private static ParkingLot _instanc = null`
-3. 定义 `public static ParkingLot getInstance()`
-4. `static`: 修饰class的attributes and methods, 使之属于类的而不是类的实例
-
-```diff
-!    public static synchronized ParkingLot getInstance() {
-!       ...
-!    }
-```
-以上是用Lock实现线程安全的做法
-其他做法
-> 静态内部类 (*static nested classes*)
+4. Factory Design Pattern
+Kindle 生成不同的电子书格式
 ```java
-public class ParkingLot {
-    private ParkingLot(){}
 
-    private static class LazyParkingLot {
-        static final ParkingLot _instance = new ParkingLot();
-    }
+interface BookFactory {
+    void uploadBook();
+}
 
-    public static ParkingLot getInstance() {
-        return LazyPar5kingLot._instance;
+class PDFFactory implements BookFactory {
+    public uploadBook() {
+        //...
     }
 }
+
+class MOBIFactory implements BookFactory {
+    public upload() {
+        //...
+    }
+}
+
 ```
+> Factory 与 Strategy 很相似也一般会用在一起，区别是 Strategy is about behavior. Factory is about creation/instatation.
+- Factory is about `behavior`
+- Strategy is about `creation` and `instatation`
 
-[为什么需要java内部类](https://juejin.im/post/6844903566293860366)
-
+(Factory vs Strategy)[https://stackoverflow.com/questions/5375187/strategy-design-pattern-and-factory-method-design-pattern]
 
 #### Law of Demeter (SOLID 意外第六法则)
 Only talk to closly related units
@@ -263,5 +289,3 @@ Don't talk to strangers.
 # Good
 +obj.dosomething();
 ```
-
-3. State Design Pattern
