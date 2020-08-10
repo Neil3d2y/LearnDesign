@@ -110,11 +110,25 @@ interface State {
     List<Coin> refund();
 }
 
-public class NoSelectionState implements State {
+/*
+use abstract class to implemets interface
+so the other class can extends
+*/
+abstract class AbstarctState implements State {
+    // protected
+    protected VendingMachine instance;
+
+    public AbstractState(VendingMachine VM) {
+        this.instance = VM;
+    }
+}
+
+public class NoSelectionState extends AbstractState {
     VendingMachine instance;
 
+    // use super
     public NoSelectionState(VendingMachine VM) {
-        this.instance = VM;
+        super(VM);
     }
 
     @Override
@@ -139,7 +153,7 @@ public class NoSelectionState implements State {
     }
 }
 
-public class InsertedCoinState implements State {
+public class InsertedCoinState extends AbstractState {
     //...
 }
 
