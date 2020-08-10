@@ -90,6 +90,124 @@ public class ParkingLot {
 }
 ```
 
+3. State Design Pattern (状态机)
+> ATM machine, vending machine
+
+```java
+
+interface State {
+    /*
+    state 中的method是相关于状态与状态改变的方法 take vending machine as example
+    1. selectItem
+    2. insertCoin
+    3. vending
+    4. refund
+    */
+    
+    void selectItem();
+    void insertCoin();
+    Item vending();
+    List<Coin> refund();
+}
+
+public class NoSelectionState implements State {
+    VendingMachine instance;
+
+    public NoSelectionState(VendingMachine VM) {
+        this.instance = VM;
+    }
+
+    @Override
+    public void selectItem(String selection) {
+        instance.setSelectedItem(selection);
+        instance.changeToHasSelectionState();
+    }
+
+    @Override
+    public void insertCoin(List<Coins> inputs) {
+        throw new NoSelectionException();
+    }
+
+    @Override
+    public void vending() {
+        throw new NoSelectionException(); 
+    }
+
+    @Override
+    public List<Coins> refund() {
+        throw new NoSelectionException(); 
+    }
+}
+
+public class InsertedCoinState implements State {
+    //...
+}
+
+public class VendingMachine {
+    State state;
+
+    // Four States as Attributes
+    /*
+    1. NoSelectionState
+    2. InsertedCoinState
+    3. VendingState
+    4. RefundState
+    */
+    private NoSelectionState noSelectionState;
+    private InsertedCoinState insertedCoinState;
+    private VendingState vendingState;
+    private RefundSate refundSate;
+    private State currentState;
+
+    private VendingMachine() {
+        noSelectionState = new NoSelectionSate(this);
+        insertedCoinState = new InsertedCoinState(this);
+        vendingState = new VendingState(this);
+        refundState = new RefundState(this);
+        // initial currentState to noSelection
+        currentState = noSelectionState;
+    }
+
+    // state应该设置为private
+    // 但是state的转化设计为public
+    public void changeToHasSelectedState() {
+        currentState = insertedCoinState;
+    }
+
+    public void changeToVendingState() {
+        currentState = vendingState;
+    }
+
+    public void changeToRefundState() {
+        currentState = refundState;
+    }
+
+    //重点来了：
+    // vending machine的行为应该由当前的state决定
+
+    public void selectItem(String selection) {
+        currentState.selectItem(selection);
+    }
+
+    public void insertCoins(List<Coins> inputs) {
+        currentState.insertCoins(inputs);
+    }
+
+    public Item vending() {
+        currentState.vending();
+    }
+
+    public List<Coins> refund() {
+        currentState.refund();
+    }
+}
+```
+总结：
+索要设计的*系统*拥有不同的*状态*
+系统和状态拥有一样的`list of Methods`，系统的行为其实是系统不同时期*状态*的行为
+抽象的过程用**`interface`**实现
+>所以，interface && system && state 都是一样的template
+
 1. `constructor` is *private*
 2. 定义 `private static ParkingLot _instanc = null`
 3. 定义 `public static ParkingLot getInstance()`
