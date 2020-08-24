@@ -270,13 +270,22 @@ class MOBIFactory implements BookFactory {
         //...
     }
 }
-
 ```
+
+Three types Factory design pattern
+1. simple factory
+2. factory method
+3. abstract factory
+
 > Factory 与 Strategy 很相似也一般会用在一起，区别是 Strategy is about behavior. Factory is about creation/instatation.
 - Factory is about `behavior`
 - Strategy is about `creation` and `instatation`
 
 (Factory vs Strategy)[https://stackoverflow.com/questions/5375187/strategy-design-pattern-and-factory-method-design-pattern]
+
+
+5. Decorator Design Pattern
+参考coffee maker.
 
 #### Law of Demeter (SOLID 意外第六法则)
 Only talk to closly related units
