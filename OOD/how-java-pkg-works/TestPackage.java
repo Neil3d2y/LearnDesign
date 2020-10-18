@@ -1,7 +1,9 @@
 import personpkg.Person;
 import personpkg.shapepkg.*;
+import personpkg.CarCannotFly;
 import personpkg.Mazda;
 import java.util.*;
+import com.google.gson.Gson;
 
 public class TestPackage {
     public static void main(String[] args) {
@@ -25,6 +27,19 @@ public class TestPackage {
 
         Mazda mycar = new Mazda();
         mycar.start();
+
+        try {
+            mycar.fly();
+        }
+        catch (CarCannotFly nofly) {
+            System.out.println("Car cannot fly + " + nofly);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        long ts = System.currentTimeMillis();
+        System.out.println(ts);
     }
 }
 

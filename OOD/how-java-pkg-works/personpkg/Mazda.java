@@ -7,4 +7,8 @@ public class Mazda extends Vehicle{
     public void start() {
         System.out.println("Started my Mazda..");
     }
+
+    public void fly() throws CarCannotFly {
+        throw new CarCannotFly("MDZZ");
+    }
 }
